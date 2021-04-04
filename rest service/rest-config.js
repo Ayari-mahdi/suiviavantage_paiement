@@ -1,0 +1,1 @@
+export const beneficiaries_list = "https://reactnative.dev/movies.json";

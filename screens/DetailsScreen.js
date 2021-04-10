@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {AntDesign} from 'react-native-vector-icons';
+import {MaterialIcons} from 'react-native-vector-icons';
+import {Ionicons} from 'react-native-vector-icons';
 import * as Animatable from 'react-native-animatable'
 import {StyleSheet,View,Text,
     SafeAreaView,TextInput,Alert,
@@ -32,13 +34,21 @@ function DetailsScreen({route,navigation}) {
             <Text style= {styles.txt}>-Release Year :</Text>
             <Text style= {styles.txt2}>{data.releaseYear} </Text>
            </View>
-         
+           <View style={{...styles.items}}>           
+            <Text style= {styles.txt}>-Salaire :</Text>
+            <Text style= {styles.txt2}>000.000
+            <Text style= {{paddingLeft:20}} onPress={()=>{navigation.navigate('AddsalaryScreen',{oneitem:data})}}><Ionicons name='add-circle' color="grey"  size={38}/> </Text>
+
+             </Text> 
+            
+           </View>
+
         
            </ScrollView>
            </View >
            <TouchableOpacity style={styles.closebutton}  onPress={()=>navigation.goBack()}>
                      
-            <Text style= {styles.close}> X </Text>
+            <Text style= {styles.close}> <AntDesign name='closecircle' color="black"  size={35}/> </Text>
            
         
            </TouchableOpacity>
@@ -113,7 +123,7 @@ const styles = StyleSheet.create({
         fontSize:20,
         margin:6,
         
-        paddingLeft:20,
+        paddingLeft:10,
         marginBottom:20
     },
   
@@ -125,13 +135,14 @@ const styles = StyleSheet.create({
         height:35,
         alignItems:'center',
         justifyContent:'center',
-        borderRadius:20,
+        borderRadius:25,
         marginBottom:-15,
        
     },
     close:{
         fontWeight:'bold',
-        fontSize:15
+        fontSize:15,
+        marginBottom:20
     },
  
 })

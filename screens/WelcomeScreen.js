@@ -12,8 +12,8 @@ import {StyleSheet,View,Text,
 
 function WelcomeScreen({ navigation }) 
 {
-    const [number, onChangeNumber] = React.useState("");
-    const [number2,onChangeNumber2] = React.useState("");
+    const [number,setNumber] = React.useState("");
+    const [number2,setNumber2] = React.useState("");
     const {landscape} = useDeviceOrientation();
     const [isLoading, setLoading] = React.useState(false);
     const[isActive,setIsActive] = React.useState(false);
@@ -52,10 +52,11 @@ duration={1500}
      <LinearGradient colors={['#2C5364','#141E30']} style={styles.box} >          
      
      <TextInput style={customStyle }
+     
         placeholderTextColor="grey"
         onFocus={()=> setIsActive(true)}
         onBlur={()=> {setIsActive(false);if(number.trim()===""){setIstest(true)} else {setIstest(false)} }}
-        onChangeText={onChangeNumber}
+        onChangeText={number=>setNumber(number)}
         value={number}
         placeholder="NUM AFFILIATION:"
         maxLength={9}
@@ -69,15 +70,15 @@ duration={1500}
         placeholderTextColor="grey"
         onFocus={()=> setIsActive2(true)}  
         onBlur={()=> {setIsActive2(false);if(number2.trim()===""){setIstest2(true)} else {setIstest2(false)} }}
-        onChangeText={onChangeNumber2}
+        onChangeText={number2=>setNumber2(number2)}
         value={number2}
         placeholder="CIN:*******"
         maxLength={8}
         keyboardType="numeric" >
      </TextInput>    
      {istest2? 
-          <Animatable.Text animation='bounceIn' style={{ color: "red",marginTop:-55,marginBottom:40,marginLeft:"75%" }}> <MaterialIcons name='error-outline' color="red"  size={22}/></Animatable.Text> 
-          : <Animatable.Text animation='fadeOutRight' style={{ color: "red",marginTop:-55,marginBottom:40,marginLeft:"75%" }}><MaterialIcons name='error-outline' color="dodgerblue"  size={22}/> </Animatable.Text>
+          <Animatable.Text animation='bounceIn' style={styles.inputerror}> <MaterialIcons name='error-outline' color="red"  size={22}/></Animatable.Text> 
+          : <Animatable.Text animation='fadeOutRight' style={styles.inputerror}><MaterialIcons name='error-outline' color="dodgerblue"  size={22}/> </Animatable.Text>
           }
      <LinearGradient colors={['#2ecc71','#1abc9c']} style={styles.button}>
        <View>
@@ -85,8 +86,12 @@ duration={1500}
        style={styles.button2} 
        underlayColor='#1abc9c'
        onPress={async() => {
-       
-        if (istest === false && istest2 === false) {
+       // if(number.trim()===""){setIstest(true)}else {setIstest(false)}
+        //if(number2.trim()===""){setIstest2(true)}else {setIstest2(false)}
+      //  if (istest === false && istest2 === false)
+      //{
+        if ((number.trim()!=="" && number2.trim()!==""))
+        {
         
          setLoading(true)
         try {
@@ -94,7 +99,7 @@ duration={1500}
        
       let result = await employer.json();
       setLoading(false)
-      return navigation.navigate('login')
+      return navigation.navigate('login',{numaff:number})
       }
       catch(error)
       {
@@ -103,14 +108,21 @@ duration={1500}
               setLoading(false);
               setIstest(true);
               setIstest2(true);
-             
-
+              setNumber("");
+              setNumber2("");
+              
+              
       }
+    
        }
-       else {
-        if(number.trim()===""){setIstest(true)} else {setIstest(false)}
-        if(number2.trim()===""){setIstest2(true)}else {setIstest2(false)}
+       else{
+        if(number.trim()===""){setIstest(true)}
+        if(number2.trim()===""){setIstest2(true)}
        }
+     //  else {
+      //  if(number.trim()===""){setIstest(true)} else {setIstest(false)}
+        //if(number2.trim()===""){setIstest2(true)}else {setIstest2(false)}
+       //}
       
       }}      
        >
@@ -220,6 +232,9 @@ const styles = StyleSheet.create({
         fontSize:15,
         color:"#fff",
         //color:"black"
+    },
+    inputerror:{
+      color: "red",marginTop:-55,marginBottom:40,marginLeft:"75%"
     },
     button:{
         width:"50%",

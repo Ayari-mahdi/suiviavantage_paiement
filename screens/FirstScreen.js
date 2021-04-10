@@ -18,32 +18,31 @@ import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio
     
     const Tab = createMaterialBottomTabNavigator();
       
-function FirstScreen({navigation}) 
-{
-    const [number, onChangeNumber,number2,onChangeNumber2] = React.useState(null);
-    const {landscape} = useDeviceOrientation();
-    const[isActive,setIsActive] = React.useState(false);
-    const[isActive2,setIsActive2] = React.useState(false);
-    const customStyle = isActive ? styles.input2 : styles.input;    
-    const customStyle2 = isActive2 ? styles.input2 : styles.input;      
+function FirstScreen({route,navigation}) 
+{var numaf= route.params.numaff;
+  console.log(numaf)
+  
 return (
-    
-
-   <Tab.Navigator  activeColor="white" barStyle={{backgroundColor:"#1abc9c" }}>
+   <Tab.Navigator  activeColor="white" barStyle={{backgroundColor:"#19456b" }}>
     <Tab.Screen        
      options={{
-     
-     
      tabBarLabel: 'listing',
      tabBarIcon: ({ color }) => (
      <MaterialCommunityIcons name="format-list-bulleted" color={color} size={23} />
      ),
     }} 
-    name="listing" component={ListingScreen} />
-    
+    name="listing" 
+     //component={ListingScreen,{numaf:numaf}}
+   // initialParams={numaf}
+    >
+   
+   {() => {
+      const y =numaf.toString();
+     return <ListingScreen  numaf={numaf} text="xo" />}}
+   </Tab.Screen>
+
     <Tab.Screen
      options={{
-        
      tabBarIcon: ({ color }) => (
      <MaterialCommunityIcons name="playlist-edit" color={color} size={23} />
      ),

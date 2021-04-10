@@ -13,6 +13,7 @@ import ListingScreen from './screens/ListingScreen';
 import PaiementScreen from './screens/PaiementScreen';
 import FormScreen from './screens/FormScreen';
 import DetailsScreen from './screens/DetailsScreen';
+import AddsalaryScreen from './screens/AddsalaryScreen';
 export default function App()  {
   const Stack = createStackNavigator();
  const {landscape} = useDeviceOrientation();
@@ -23,19 +24,34 @@ export default function App()  {
   <Stack.Navigator >
     <Stack.Screen name="suivi avantage"
       options={{headerShown:false,headerStyle: {backgroundColor: "white"},
-      headerTintColor: 'black', headerTitleStyle: {
-        //fontWeight: 'bold', //Set Header text style
+      headerTintColor: 'white', headerTitleStyle: {
       },
       }}
       component={WelcomeScreen} />
+
     <Stack.Screen name="login" 
-      options={{headerStyle: {
-      backgroundColor: "#1abc9c"}}}  
+      options={{headerTintColor: 'white',
+        headerStyle: { backgroundColor: "#19456b"}}    
+      }  
       component={FirstScreen} />
-    <Stack.Screen name="FormScreen" options={{headerStyle: {
-      backgroundColor: "#1abc9c" //Set Header color
+
+<Stack.Screen name="ListingScreen" 
+      options={{headerTintColor: 'white',
+        headerStyle: { backgroundColor: "#19456b"}}    
+      }  
+      component={ListingScreen} />
+
+    <Stack.Screen name="FormScreen" options={{headerTintColor: 'white',
+      headerStyle: {
+      backgroundColor: "#19456b" //Set Header color   #1abc9c
       },title:"Back"}}
       component={FormScreen} />
+
+       <Stack.Screen name="AddsalaryScreen" options={{headerShown:false,headerTintColor: 'white',
+      headerStyle: {
+      backgroundColor: "#19456b" //Set Header color   #1abc9c
+      },title:"Back"}}
+      component={AddsalaryScreen} />
     <Stack.Screen name="DetailsScreen" options={{
       headerShown:false
       }}

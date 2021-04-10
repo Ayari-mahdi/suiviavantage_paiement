@@ -65,21 +65,19 @@ function PaiementScreen({navigation})
              }
             numColumns={1}
            />  
-           
-        
       </View>
       </View>
     
         )}
      
         <View style={{marginLeft:"65%",marginTop:15,flexDirection:"row"}}> 
-        <Text style={{fontSize:20,paddingTop:10,paddingRight:10,color:"dodgerblue"}}>ajouter</Text>
+        <Text style={{fontSize:20,paddingTop:10,paddingRight:10,color:"black"}}>Ajouter</Text>
         <TouchableHighlight
          style={styles.button}   
-         underlayColor='grey'
+         underlayColor='white'
          onPress={()=>navigation.navigate('FormScreen')}  
          >
-        <MaterialIcons name='add-box' color="dodgerblue"  size={50}/>
+        <MaterialIcons name='add-box' color="black"  size={50}/>
         </TouchableHighlight>
         </View>
         
@@ -94,6 +92,7 @@ container:{
         //backgroundColor:'#05375a',
         flex: 1, 
         padding: 10,
+        
       //  backgroundColor:"white"
  },
 

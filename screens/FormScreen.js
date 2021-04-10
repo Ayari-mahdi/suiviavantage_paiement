@@ -3,7 +3,7 @@ import * as Animatable from 'react-native-animatable'
 import {MaterialIcons} from 'react-native-vector-icons';
 import { View,Text,StyleSheet,SafeAreaView,
     ActivityIndicator,TouchableWithoutFeedback,
-TextInput,Button,KeyboardAvoidingView,Keyboard,TouchableHighlight, Alert,Dimensions,StatusBar } from 'react-native';
+TextInput,KeyboardAvoidingView,Keyboard,TouchableHighlight, Alert,Dimensions,StatusBar } from 'react-native';
 import { color } from 'react-native-reanimated';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useState } from 'react';
@@ -188,8 +188,8 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         //borderWidth:2,
        // borderColor:"#2ecc71",
-        //backgroundColor:"black"*
-        backgroundColor: "#1abc9c"
+        backgroundColor:"#19456b"
+        //backgroundColor: "#1abc9c"
     },
     submitText:{
         color:'#fff',       

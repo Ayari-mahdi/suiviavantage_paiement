@@ -37,5 +37,6 @@
     "@babel/core": "^7.9.0",
     "@prince8verma/react-native-snackbar": "^1.2.2"
   },
-  "private": true
+  "private": true,
+  "android-shake":"adb shell input keyevent 82"
 }

@@ -20,7 +20,7 @@ function PaiementScreen({navigation})
     const {height} = Dimensions.get("screen");
     const statusbar= StatusBar.currentHeight
     
-    const height_flatlist = (height-statusbar) *0.6; 
+    const height_flatlist = (height-statusbar) *0.58; 
 
     const[api,setApi]= useState("https://reactnative.dev/movies.json")
    useEffect(() => {
@@ -61,20 +61,34 @@ function PaiementScreen({navigation})
             <View style={{...styles.items,backgroundColor: index % 2 == 1 ? "white" : "white"}}>           
             <Text style= {styles.txt}>{item.title}</Text>
             <Text style= {styles.txt}>{item.releaseYear} </Text>
-           </View>)
+           </View>
+           )
              }
             numColumns={1}
            />  
+             <FlatList
+         data={data}
+         keyExtractor={( item, index) => index+""}
+         renderItem={({ item,index }) =>(
+            <View style={{...styles.items,backgroundColor: index % 2 == 1 ? "white" : "white"}}>           
+            <Text style= {styles.txt}>{item.title}</Text>
+            <Text style= {styles.txt}>{item.releaseYear} </Text>
+           </View>
+           )
+             }
+            numColumns={1}
+           /> 
+      
       </View>
       </View>
     
         )}
      
-        <View style={{marginLeft:"65%",marginTop:15,flexDirection:"row"}}> 
-        <Text style={{fontSize:20,paddingTop:10,paddingRight:10,color:"black"}}>Ajouter</Text>
+        <View style={{marginBottom:70,marginTop:15,flexDirection:"row",alignSelf:"flex-end"}}> 
+      
         <TouchableHighlight
          style={styles.button}   
-         underlayColor='white'
+         underlayColor='grey'
          onPress={()=>navigation.navigate('FormScreen')}  
          >
         <MaterialIcons name='add-box' color="black"  size={50}/>
@@ -93,7 +107,7 @@ container:{
         flex: 1, 
         padding: 10,
         
-      //  backgroundColor:"white"
+       backgroundColor:"white"
  },
 
 items:

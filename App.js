@@ -30,7 +30,7 @@ export default function App()  {
       component={WelcomeScreen} />
 
     <Stack.Screen name="login" 
-      options={{headerTintColor: 'white',
+      options={{headerTintColor: 'white',title:"back",
         headerStyle: { backgroundColor: "#19456b"}}    
       }  
       component={FirstScreen} />

@@ -34,7 +34,7 @@ function AddsalaryScreen ({route,navigation}) {
 
         <View style={styles.inner}>
         <Text style={styles.header}>Ajouter le salaire</Text>
-        <Text style={styles.empname}>de {data.title}</Text>
+        <Text style={styles.empname}>de {data.daa_nom} {data.daa_prenom}</Text>
         <TextInput placeholder="Salaire"
           onFocus={()=>{ setIsActive5(true) }}
           onBlur={()=> { setIsActive5(false); if(number5.trim()===""){setIstest5(true)} else { setIstest5(false)} }}

@@ -20,26 +20,26 @@ function DetailsScreen({route,navigation}) {
            <Text style={styles.title}>Détails de l'employé</Text>
            
            <Text style={{borderTopWidth:2,borderRadius:10,width:"75%",alignSelf:"center",marginBottom:10}}></Text>
-           <ScrollView>
+           <ScrollView style={{width:"100%"}}>
            <View style={{...styles.items}}>           
-            <Text style= {styles.txt}>-ID :</Text>
-            <Text style= {styles.txt2}>{data.id} </Text>
+            <Text style= {styles.txt}>-mat :</Text>
+            <Text style= {styles.txt4}>{data.ass_mat} </Text>
            </View>
            
            <View style={{...styles.items}}>           
-            <Text style= {styles.txt}>-Title :</Text>
-            <Text style= {styles.txt2}>{data.title} </Text>
+            <Text style= {styles.txt}>-emp mat :</Text>
+            <Text style= {styles.txt4}>{data.emp_mat} </Text>
            </View>
            <View style={{...styles.items}}>           
-            <Text style= {styles.txt}>-Release Year :</Text>
-            <Text style= {styles.txt2}>{data.releaseYear} </Text>
+            <Text style= {styles.txt}>-nom :</Text>
+            <Text style= {styles.txt4}>{data.daa_nom} </Text>
            </View>
            <View style={{...styles.items}}>           
             <Text style= {styles.txt}>-Salaire :</Text>
-            <Text style= {styles.txt2}>000.000
-            <Text style= {{paddingLeft:20}} onPress={()=>{navigation.navigate('AddsalaryScreen',{oneitem:data})}}><Ionicons name='add-circle' color="grey"  size={38}/> </Text>
+            <Text style= {styles.txt3}>{data.daa_salaire} </Text> 
+            <Text style= {styles.txt2} onPress={()=>{navigation.navigate('AddsalaryScreen',{oneitem:data})}}><Ionicons name='add-circle' color="grey"  size={38}/> </Text>
 
-             </Text> 
+            
             
            </View>
 
@@ -103,30 +103,48 @@ const styles = StyleSheet.create({
     },
     items:
     { flexDirection:"row",
-    
+      //width:"100%",
+     flex:1,
       borderBottomWidth:1,
-      marginHorizontal:20,
+      marginHorizontal:10,
+  // marginRight:20,
       justifyContent:"center",
       alignItems:"center",
       
     },
     txt:{
-        width:"50%",
+        width:"40%",
         fontSize:20,
         margin:6,
         fontWeight:'bold',
         paddingLeft:20,
-        marginBottom:20
+        marginBottom:20,
+       
     },
-    txt2:{
-        width:"50%",
+    txt4:{
+        width:"60%",
         fontSize:20,
         margin:6,
-        
-        paddingLeft:10,
-        marginBottom:20
+        fontWeight:'bold',
+        paddingLeft:20,
+        marginBottom:20,
+      
     },
-  
+    txt3:{
+        width:"45%",
+        fontSize:20,
+        margin:6,
+        fontWeight:'bold',
+        paddingLeft:20,
+        marginBottom:20,
+      
+      },
+    txt2:{
+        width:"15%",
+       paddingBottom:15,
+        
+      },
+   
     closebutton:{
         alignSelf:"center",
         fontSize:20,

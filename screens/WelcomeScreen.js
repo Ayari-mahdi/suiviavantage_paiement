@@ -60,7 +60,7 @@ duration={1500}
         value={number}
         placeholder="NUM AFFILIATION:"
         maxLength={9}
-        keyboardType="default" >      
+        keyboardType="numeric" >      
      </TextInput>  
      {istest? 
           <Animatable.Text animation='bounceIn' style={{ color: "red",marginTop:-55,marginBottom:40,marginLeft:"75%" }}> <MaterialIcons name='error-outline' color="red"  size={22}/></Animatable.Text> 
@@ -85,40 +85,44 @@ duration={1500}
      <TouchableHighlight
        style={styles.button2} 
        underlayColor='#1abc9c'
-       onPress={async() => {
+       onPress={async() => {navigation.navigate('login',{numaff:number})
        // if(number.trim()===""){setIstest(true)}else {setIstest(false)}
         //if(number2.trim()===""){setIstest2(true)}else {setIstest2(false)}
       //  if (istest === false && istest2 === false)
       //{
-        if ((number.trim()!=="" && number2.trim()!==""))
-        {
+
+
+      ///  if ((number.trim()!=="" && number2.trim()!==""))
+      //  {
         
-         setLoading(true)
-        try {
-          let employer = await fetch('https://reactnative.dev/movies.'+number);
+     //    setLoading(true)
+   //     try {
+   //       let employer = await fetch("http://172.16.17.72:8081/search_employer/"+number);
        
-      let result = await employer.json();
-      setLoading(false)
-      return navigation.navigate('login',{numaff:number})
-      }
-      catch(error)
-      {
-        Alert.alert("failed","enter a correct affiliation number!",  
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }]);
-              setLoading(false);
-              setIstest(true);
-              setIstest2(true);
-              setNumber("");
-              setNumber2("");
+  //    let result = await employer.json();
+   //   setLoading(false)
+   //   return navigation.navigate('login',{numaff:number})
+   //   }
+   //   catch(error)
+  //    {   
+      //  Alert.alert("failed","enter a correct affiliation number!!! "+ number +" doesnt exist",  
+        //      [{ text: "OK", onPress: () => console.log("OK Pressed") }]);
+       //       navigation.navigate('login',{numaff:number})
+      //        setLoading(false);
+     //         setIstest(true);
+     //         setIstest2(true);
+      //        setNumber("");
+     //         setNumber2("");
               
               
-      }
+   //   }
     
-       }
-       else{
-        if(number.trim()===""){setIstest(true)}
-        if(number2.trim()===""){setIstest2(true)}
-       }
+    //   }
+     //  else{
+     //   if(number.trim()===""){setIstest(true)}
+    //    if(number2.trim()===""){setIstest2(true)}
+    //   }
+
      //  else {
       //  if(number.trim()===""){setIstest(true)} else {setIstest(false)}
         //if(number2.trim()===""){setIstest2(true)}else {setIstest2(false)}

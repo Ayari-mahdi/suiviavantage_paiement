@@ -1,22 +1,19 @@
 import React,{ useEffect, useState }  from 'react';
-import {SnackbarComponentProps} from 'react-native-snackbar-component'
-import {MaterialIcons} from 'react-native-vector-icons';
-//import {GestureHandler} from 'expo';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-//const{Swipeable} = GestureHandler;
+
+import {Ionicons} from 'react-native-vector-icons';
 import * as Animatable from 'react-native-animatable'
-import {AntDesign} from 'react-native-vector-icons';
 import{Picker} from '@react-native-community/picker'
-import { ScrollView,View,Text,StyleSheet,
-  SafeAreaView,FlatList,ActivityIndicator,
-   Alert ,SectionList,Dimensions,StatusBar,TouchableOpacity,
-   TextInput,Animated} from 'react-native';
+import { View,Text,StyleSheet,
+  FlatList,ActivityIndicator,
+   Alert ,SectionList,Dimensions,StatusBar,
+   TextInput,Animated,TouchableHighlight} from 'react-native';
 import { getbeneficiaries} from '../rest service/api-service'
 import DetailsScreen from './DetailsScreen';
 //function ListingScreen({navigation}) {
 import ListItem  from "./ListItem";
-import { List } from 'react-native-paper';
-import { render } from 'react-dom';
+import { Searchbar } from 'react-native-paper';
+
+
 
   
    
@@ -31,35 +28,72 @@ function ListingScreen ({numaf,navigation})
     const [isLoading, setLoading] = React.useState(true);
     const [isExpand, setExpand] = React.useState(false);
     const [trim,setTrim] = React.useState("");
+    const [search,setSearch] = React.useState("");
     const [year,setYear] = React.useState("2021");
     const [data, setData] = React.useState([]);
     const [itemheight,setItemheight] = React.useState(80);
     const [circlename,setCirclename] = React.useState('rightcircle');
     const [circlecolor,setCirclecolor] = React.useState("#505050");
 
-    const [selectedValue, setSelectedValue] = useState("Star Wars");
+    const [selectedValue, setSelectedValue] = useState("Karama");
 
     
 const {height} = Dimensions.get("screen");
 const statusbar= StatusBar.currentHeight
 
-const height_flatlist = (height-statusbar) *0.7;
-    const[api,setApi]= useState("https://reactnative.dev/movies."+numaf)
+const height_flatlist = (height-statusbar) *0.63;
+    //const[api,setApi]= useState("http://172.16.17.72:8081/listemployeesperemployer/"+numaf)
+    const[api,setApi]= useState("https://reactnative.dev/movies.json")
 
    useEffect(() => {
       fetch(api)
         .then((response) => response.json())
-        .then((json) => setData(json.movies))
-        .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
+        .then((json)=>setData(json.movies))
+      //  .then((json) => setData(json))
+      
+      .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
         [{ text: "OK", onPress: () => console.log("OK Pressed") }]))
-        .finally(() => setLoading(false),console.log(numaf));
+        .finally(() => setLoading(false),console.log(numaf),console.log(data));
     }, []);
 
     return (
 <Animatable.View animation='fadeInRightBig' duration={700} style={styles.container}>
+   <View style={{flexDirection:"row",marginBottom:20,marginHorizontal:5} } >
+  <TextInput style={{width:"75%",borderColor:"black",
+           
+        borderWidth:0.3,
+       
+        fontSize:15,
+        color:"black",
+       backgroundColor:"#E0E0E0",
+        borderRadius:40,
+       // fontWeight:"600",
+        paddingHorizontal:"10%",
+       // marginBottom:10,  
+        //alignSelf:"center"  
+        marginRight:5
+       }}
+     placeholderTextColor="grey"
+     onChangeText={search=>setSearch(search)}
+     value={search}
+     placeholder="Recherche: nom, matricule"
+     
+     keyboardType="default" >      
+   </TextInput>   
+     <TouchableHighlight
+         style={{backgroundColor:"black",paddingVertical:2,borderRadius:20,alignItems:"center",alignSelf:"center",flex:1}}   
+         underlayColor='grey'
+         onPress={()=>setSearch(search)}  
+         >
+         <View style={{flexDirection:"row"}}>
+         <Text style={{color:"white"}}>Search</Text>
+         <Text><Ionicons name='search-outline' color="white"  size={20}/></Text>
+         </View>
+    </TouchableHighlight>
+  </View>
  <View style={{flexDirection:"row"}}>
   <View style={{width:"65%",flexDirection:"row"}}>
-    <View style={{borderColor:"black",borderWidth:1,width:"35%",borderRadius:10,marginLeft:10,backgroundColor:"white",}}>
+    <View style={{borderColor:"black",borderWidth:0.4,width:"35%",borderRadius:10,marginLeft:10,backgroundColor:"white",}}>
   <Picker 
   placeholder="TRIM"
         selectedValue={trim}
@@ -75,8 +109,8 @@ const height_flatlist = (height-statusbar) *0.7;
    <TextInput   style={{width:"40%",      borderColor:"black",  
        // height: 50,     
      //   paddingHorizontal:"23%",        
-        borderWidth: 1,
-        borderBottomWidth:1,
+        borderWidth: 0.4,
+        //borderBottomWidth:1,
         fontSize:15,
         color:"black",
         backgroundColor:"white",
@@ -86,6 +120,7 @@ const height_flatlist = (height-statusbar) *0.7;
        // alignItems:"center",
      //  alignSelf:"center"
         //color:"white",     
+        
        }}
      placeholderTextColor="grey"
      onChangeText={year=>setYear(year)}
@@ -96,21 +131,22 @@ const height_flatlist = (height-statusbar) *0.7;
    </TextInput>   
   </View>
 
-  <View style={{borderColor:"black",borderWidth:1,width:110,borderRadius:10,backgroundColor:"white",}}>
+  <View style={{borderColor:"black",borderWidth:0.4,width:110,borderRadius:10,backgroundColor:"white",}}>
       <Picker
         selectedValue={selectedValue}
         style={{  width: 120}}
         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         >
         <Picker.Item label="KARAMA" value="KARAMA" />
-        <Picker.Item label="SCVP" value="SCVP" />
-        <Picker.Item label="Star Wars" value="Star Wars" />
+        <Picker.Item label="SCV" value="SCV" />
+        <Picker.Item label="CIVP" value="CIVP" />
+        <Picker.Item label="STARTUP-ACT" value="STARTUP-ACT" />
       </Picker>
   </View>
 </View>
 
 
-      <View style={{borderBottomWidth:1, padding:10}}></View>
+      <View style={{borderBottomWidth:0.5, padding:8}}></View>
       
         {isLoading ? 
             <View style={styles.loading} > 
@@ -118,26 +154,41 @@ const height_flatlist = (height-statusbar) *0.7;
             <Text style={{alignSelf:"center",fontSize:15}} >loading...</Text>
              </View> : (
                
-        <View style={{marginBottom:10,height:height_flatlist}}>        
+        <View style={{marginBottom:0,height:height_flatlist}}>        
           <FlatList
          data={data}
          keyExtractor={({ id }, index) => id}
          
          renderItem={({ item }) =>{
-          if (item.title !== selectedValue){
+          
+           if(search.trim()!=="") { 
+          if (item.title.toLowerCase()=== search.toLowerCase().trim() ||item.releaseYear=== search.trim()){
+          
+          
           const x =selectedValue.toString();
            
            return<ListItem item={item} selectedValue={x}  navigation={navigation}
            onSwipefromleft={()=>navigation.navigate("DetailsScreen",{oneitem:item})}
            onRightPress={()=>navigation.navigate("AddsalaryScreen", {oneitem:item})}
-           />
+           />     
           }
+        } 
+        if (search.trim()==="")
+        {   
+          const x =selectedValue.toString();
+          return<ListItem item={item} selectedValue={x}  navigation={navigation}
+          onSwipefromleft={()=>navigation.navigate("DetailsScreen",{oneitem:item})}
+          onRightPress={()=>navigation.navigate("AddsalaryScreen", {oneitem:item})}
+          />     
+        }
+
+
          }}
          numColumns={1}
         />        
       </View>
         )}
-        
+        <View style={{borderTopWidth:0.2, padding:0}}></View>
          </Animatable.View>)
          
          
@@ -189,10 +240,9 @@ items1:
       },
 container:{
     //backgroundColor:'#05375a',
-      flex: 1, 
+      flex: 1,     
       paddingVertical:24,
-      paddingHorizontal:0,
-   
+   backgroundColor:"white"
       },
 txt:{
       width:"45%",

@@ -173,8 +173,8 @@ if (item.title !== selectedValue){
         }}>
     <View style= {styles.items1}>      
     <View style= {{...styles.items,borderTopWidth:0}}>   
-    <Text style= {styles.txt1}>{item.daa_prenom}{item.title}</Text>
-    <Text style= {styles.txt1}>{item.daa_nom}{item.releaseYear} </Text>
+    <Text style= {styles.txt1}>{item.daa_prenom}</Text>
+    <Text style= {styles.txt1}>{item.daa_nom} </Text>
    
     <Text style= {styles.txt2}  onPress={()=>
         { 
@@ -186,19 +186,19 @@ if (item.title !== selectedValue){
     <View style= {styles.items2}>  
      <View style= {styles.items}> 
     <Text style= {styles.txt1} >Date debut :</Text>
-    <Text style= {styles.txt4} >ggh{item.daa_dtdeb}</Text>
+    <Text style= {styles.txt4} >{item.daa_dtdeb}</Text>
     </View>
     <View style= {styles.items}> 
     <Text style= {styles.txt1}>Date fin :</Text>
-    <Text style= {styles.txt4}>hgh{item.daa_dtfin}</Text>
+    <Text style= {styles.txt4}>{item.daa_dtfin}</Text>
     </View>
     <View style= {styles.items}> 
-    <Text style= {styles.txt1}>Mat : {item.ass_mat}</Text>
+    <Text style= {styles.txt1}>Mat :</Text>
     <Text style= {styles.txt4}> {item.ass_mat}</Text>
     </View>
     <View style= {styles.items}> 
-    <Text style= {styles.txt1} >Salaire : {item.daa_salaire} </Text>
-    <Text style= {styles.txt1} >gf{item.daa_salaire} </Text>
+    <Text style= {styles.txt1} >Salaire : </Text>
+    <Text style= {styles.txt1} >{item.daa_salaire} </Text>
     <Text style= {styles.txt2} onPress={()=>{navigation.navigate('AddsalaryScreen',{oneitem:item})}}><MaterialIcons name='error-outline' color="black"  size={25}/> </Text>
 
     

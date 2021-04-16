@@ -12,6 +12,7 @@ import DetailsScreen from './DetailsScreen';
 //function ListingScreen({navigation}) {
 import ListItem  from "./ListItem";
 import { Searchbar } from 'react-native-paper';
+import { createPortal } from 'react-dom';
 
 
 
@@ -27,9 +28,9 @@ function ListingScreen ({numaf,navigation})
   //const numaf= route.navigation.dangerouslyGetParent().getParam('numaff');
     const [isLoading, setLoading] = React.useState(true);
     const [isExpand, setExpand] = React.useState(false);
-    const [trim,setTrim] = React.useState("");
+    const [trim,setTrim] = React.useState("1");
     const [search,setSearch] = React.useState("");
-    const [year,setYear] = React.useState("2021");
+    const [year,setYear] = React.useState("");
     const [data, setData] = React.useState([]);
     const [itemheight,setItemheight] = React.useState(80);
     const [circlename,setCirclename] = React.useState('rightcircle');
@@ -42,19 +43,19 @@ const {height} = Dimensions.get("screen");
 const statusbar= StatusBar.currentHeight
 
 const height_flatlist = (height-statusbar) *0.63;
-    //const[api,setApi]= useState("http://172.16.17.72:8081/listemployeesperemployer/"+numaf)
-    const[api,setApi]= useState("https://reactnative.dev/movies.json")
-
+  //  const[api,setApi]= useState("http://172.16.17.124:8081/listemployeesperemployer/"+numaf)
+   // const[api,setApi]= useState("https://reactnative.dev/movies.json")
+ 
    useEffect(() => {
-      fetch(api)
-        .then((response) => response.json())
-        .then((json)=>setData(json.movies))
+      fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf)
+       .then((response) => response.json())
+       .then((json)=>setData(json), console.log(data) )
       //  .then((json) => setData(json))
-      
+         
       .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }]))
-        .finally(() => setLoading(false),console.log(numaf),console.log(data));
-    }, []);
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }]))
+         .finally(() => setLoading(false),console.log(numaf),console.log(data));
+     }, []);
 
     return (
 <Animatable.View animation='fadeInRightBig' duration={700} style={styles.container}>
@@ -83,7 +84,19 @@ const height_flatlist = (height-statusbar) *0.63;
      <TouchableHighlight
          style={{backgroundColor:"black",paddingVertical:2,borderRadius:20,alignItems:"center",alignSelf:"center",flex:1}}   
          underlayColor='grey'
-         onPress={()=>setSearch(search)}  
+         onPress={() => {
+          
+                  fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf+"/"+trim+"/"+year)
+                 .then((response) => response.json())
+                 .then((json)=>setData(json), console.log(data),console.log(trim),console.log(year) )
+                 
+               .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }]))
+                 .finally(() => setLoading(false),console.log(numaf),console.log(data));
+            }
+
+         }
+
          >
          <View style={{flexDirection:"row"}}>
          <Text style={{color:"white"}}>Search</Text>
@@ -162,11 +175,12 @@ const height_flatlist = (height-statusbar) *0.63;
          renderItem={({ item }) =>{
           
            if(search.trim()!=="") { 
-          if (item.title.toLowerCase()=== search.toLowerCase().trim() ||item.releaseYear=== search.trim()){
+          if (item.daa_nom.toLowerCase()=== search.toLowerCase().trim() ||item.daa_prenom.toLowerCase() === search.toLowerCase().trim()
+          || item.ass_mat=== search.trim()){
           
           
           const x =selectedValue.toString();
-           
+          
            return<ListItem item={item} selectedValue={x}  navigation={navigation}
            onSwipefromleft={()=>navigation.navigate("DetailsScreen",{oneitem:item})}
            onRightPress={()=>navigation.navigate("AddsalaryScreen", {oneitem:item})}
@@ -176,7 +190,7 @@ const height_flatlist = (height-statusbar) *0.63;
         if (search.trim()==="")
         {   
           const x =selectedValue.toString();
-          return<ListItem item={item} selectedValue={x}  navigation={navigation}
+          return<ListItem item={item} key={item.key} selectedValue={x}  navigation={navigation}
           onSwipefromleft={()=>navigation.navigate("DetailsScreen",{oneitem:item})}
           onRightPress={()=>navigation.navigate("AddsalaryScreen", {oneitem:item})}
           />     

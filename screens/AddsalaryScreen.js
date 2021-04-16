@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable'
 import {MaterialIcons} from 'react-native-vector-icons';
 import { View,Text,StyleSheet,TouchableWithoutFeedback,
 TextInput,KeyboardAvoidingView,Keyboard,TouchableHighlight,
-Dimensions,StatusBar,TouchableOpacity } from 'react-native';
+Dimensions,StatusBar,TouchableOpacity,ActivityIndicator, Alert } from 'react-native';
 import { useState } from 'react';
 
 
@@ -14,6 +14,7 @@ function AddsalaryScreen ({route,navigation}) {
   const[isActive5,setIsActive5] = React.useState(false);
   const customStyle5 = isActive5 ? styles.textInput2: styles.textInput;      
   const [istest5,setIstest5]=useState(""); 
+  const [isLoading, setLoading] = React.useState(false);
     return (
 
         <KeyboardAvoidingView  
@@ -46,19 +47,53 @@ function AddsalaryScreen ({route,navigation}) {
             <Animatable.Text animation="bounceIn" style={{ color: "red",marginTop:-65,marginLeft:"90%",marginBottom:40 }}><MaterialIcons name='error-outline' color="red"  size={22}/></Animatable.Text>
             : <Animatable.Text animation="fadeOutRight"  style={{ color: "red",marginTop:-65,marginLeft:"90%",marginBottom:40 }}><MaterialIcons name='error-outline' color="dodgerblue"  size={22}/></Animatable.Text>
         }
+ {isLoading ? 
+            <View style={styles.loading} > 
+            <ActivityIndicator  size="large" color="green"  />
+            <Text style={{alignSelf:"center",fontSize:15}} >loading...</Text>
+             </View> :(
+
+
+
         <TouchableHighlight
           style={styles.button} 
           underlayColor='grey'
-          onPress={() => {
+          onPress={async() => {
            if (istest5===false)
-            {navigation.navigate('login')} 
+
+            { setLoading(true);
+             // navigation.navigate('login')
+
+            try {
+          let employer = await fetch("http://172.16.17.124:8081/employeeSalary"+number5,{method:'POST',body:data});
+          console.log(number5);
+          console.log(data);
+          let result = await employer.json();
+          setLoading(false)
+          Alert.alert("salaire ajouter avec succés nom prenom :"+ data.daa_nom +
+          " "+data.daa_prenom +':'+number5)
+          return navigation.navigate('login');
+          
+        }
+       catch(error)
+        {   
+        Alert.alert("failed","enter a correct affiliation number!!! "+ number +" doesnt exist",  
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }]);
+              setLoading(false);
+              setIstest(true);
+              setIstest2(true);
+              setNumber("");
+              setNumber2("");         
+         }
+                      
+            } 
             else {
             
               if(number5.trim()===""){setIstest5(true)} else { setIstest5(false)}
             } 
           }}>
         <Text style={styles.submitText}>Submit</Text>
-    </TouchableHighlight>
+    </TouchableHighlight>)}
     </View>   
     </Animatable.View>
     

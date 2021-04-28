@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
            // borderWidth:1,
           //  borderRadius:20,
             marginHorizontal:35,
-          
-         //  backgroundColor:"blue",  
+          overflow:"hidden"
+          // backgroundColor:"blue",  
          //  borderTopWidth:0.5,
           // borderColor:"black"
     
@@ -102,18 +102,8 @@ txt2:{
           justifyContent: "center",
            
         },
-
-bar1:{
-         backgroundColor:"#00A572",
-         width:"100%",alignItems:"center",
-         borderBottomLeftRadius:20,borderBottomRightRadius:20
-        },
-bar2 :{   
-         backgroundColor:"red",
-         width:"100%",alignItems:"center",
-        borderBottomLeftRadius:20,borderBottomRightRadius:20}
         
-      });
+    });
 ////////////////////////////////////////////////////
 const LeftActions =(progress, dragX) =>{
         const scale = dragX.interpolate({
@@ -134,13 +124,10 @@ const LeftActions =(progress, dragX) =>{
 //////////////////////////////////////////////////
        
 /////////////////////////////////////////////
-const ListItem = ({item,selectedValue,onSwipefromleft,onRightPress,navigation,animatefun,index,color})=>
+const exm = ({item,selectedValue,onSwipefromleft,onRightPress,navigation,animatefun,index})=>
 { //const selectedValue = selectedVal;
    // console.log(item);
- 
-    const customStyle = color ? styles.bar2 : styles.bar1;  
-    const [Barcolor,setBarcolor] = React.useState(color);
-    const animatedvalue = React.useRef(new Animated.Value(0)).current;
+   const animatedvalue = React.useRef(new Animated.Value(0)).current;
     const [currentIndex,setCurrentIndex]=React.useState(null);
     const [isExpand, setExpand] = React.useState(false);
     const [itemheight,setItemheight] = React.useState(80);
@@ -157,7 +144,7 @@ const ListItem = ({item,selectedValue,onSwipefromleft,onRightPress,navigation,an
    const animation2 = (toValue)=>
       Animated.timing(height, {
         toValue,
-        duration: 350,
+        duration: 200,
         easing: Easing.linear,
         useNativeDriver: false  // <-- neccessary
       });
@@ -216,7 +203,7 @@ if (item.title !== selectedValue){
  
 
     return(
-    
+  
 <Swipeable renderLeftActions={LeftActions}
            ref={swipeableRef}
            onSwipeableLeftOpen={()=>{closeSwipeable();onSwipefromleft()}}   
@@ -233,11 +220,10 @@ if (item.title !== selectedValue){
           else {setCirclecolor("#505050")}
         }}>
 
-  <Animatable.View animation='flipInX' delay={200}>
     <View 
     style= {styles.items1}>      
     <View style= {{...styles.items,borderTopWidth:0}}>   
-    <Text style= {styles.txt1}>dsfsd{item.daa_prenom}</Text>
+    <Text style= {styles.txt1}>{item.daa_prenom}</Text>
     <Text style= {styles.txt1}>{item.daa_nom}</Text>
      
         
@@ -262,11 +248,12 @@ if (item.title !== selectedValue){
    </Animated.View>  
 
     </View>
- {//isExpand? 
- index === currentIndex && ( 
+  
  
-    <Animatable.View animation="fadeInUpBig"  style= {styles.items2}>  
-     
+    <Animatable.View animation="fadeInUpBig" style= {styles.items2}>  
+     <Animated.View
+    
+     style={{ opacity: opacity, maxHeight: maxHeight }}>
      <View style= {styles.items}> 
     <Text style= {styles.txt1} >Date debut :</Text>
     <Text style= {styles.txt4} >{item.daa_dtdeb}</Text>
@@ -283,24 +270,25 @@ if (item.title !== selectedValue){
     <Text style= {styles.txt1} >Salaire : </Text>
     <Text style= {styles.txt1} >{item.daa_salaire}</Text>
     <Text style= {styles.txt2} onPress={()=>{navigation.navigate('AddsalaryScreen',{oneitem:item})}}><MaterialIcons name='error-outline' color="black"  size={25}/> </Text>
+      </View> 
+    
 
     
-      </View>
-     
+      </Animated.View>
         </Animatable.View>
        
- )}
+ 
    
-    <View style={customStyle}>
+    <View style={{backgroundColor:"#00A572",width:"100%",alignItems:"center",
+    borderBottomLeftRadius:20,borderBottomRightRadius:20}}>
       <Text style={{color:"white"}}>{selectedValue}</Text></View>  
    </View>
-   </Animatable.View>
+
 
    </TouchableWithoutFeedback>
 </Swipeable>
 
-
    )
   }   
 } 
-export default ListItem;
+export default exm;

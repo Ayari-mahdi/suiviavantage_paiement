@@ -10,6 +10,7 @@ import { View,Text,StyleSheet,
 import ListItem  from "./ListItem";
 import {Transition,Transitioning} from 'react-native-reanimated';
 import react from 'react';
+
 const transition =(
   <Transition.Together>
     <Transition.In type="fade" durationMs={200} />
@@ -17,9 +18,8 @@ const transition =(
     <Transition.Out type="fade" durationMs={200}/>
   </Transition.Together>
 )
-function ListingScreen ({numaf,navigation})
- {   
-   const numaft= numaf;
+function paymentScreen  ({numaf,navigation})  {
+  const numaft= numaf;
    const ref =react.useRef();
   //const numaf= route.navigation.dangerouslyGetParent().getParam('numaff');
     const [isLoading, setLoading] = React.useState(true);
@@ -38,7 +38,7 @@ function ListingScreen ({numaf,navigation})
 const {height} = Dimensions.get("screen");
 const statusbar= StatusBar.currentHeight
 
-const height_flatlist = (height-statusbar) *0.63;
+const height_flatlist = (height-statusbar) *0.52;
   //  const[api,setApi]= useState("http://172.16.17.124:8081/listemployeesperemployer/"+numaf)
     const[api,setApi]= useState("https://reactnative.dev/movies.json")
  // fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf )
@@ -161,14 +161,12 @@ const height_flatlist = (height-statusbar) *0.63;
             <ActivityIndicator  size="large" color="green"  />
             <Text style={{alignSelf:"center",fontSize:15}} >loading...</Text>
              </View> : (
-               
+    
         <Transitioning.View
           ref={ref}
           transition={transition}
 
           style={{marginBottom:0,height:height_flatlist}}>  
-
-
 
 
           <FlatList
@@ -184,7 +182,7 @@ const height_flatlist = (height-statusbar) *0.63;
           
            const x =selectedValue.toString();
          
-           return<ListItem item={item} selectedValue={x}  navigation={navigation} index={index}
+           return<ListItem item={item} selectedValue={x}  navigation={navigation} index={index} color={true}
            animatefun={()=>ref.current.animateNextTransition()}
            onSwipefromleft={()=>navigation.navigate("DetailsScreen",{oneitem:item})}
            onRightPress={()=>navigation.navigate("AddsalaryScreen", {oneitem:item})}
@@ -208,6 +206,79 @@ const height_flatlist = (height-statusbar) *0.63;
         />        
       </Transitioning.View>
         )}
+
+                  
+<View style={{flexDirection:"row",backgroundColor:"white",height:20,alignItems:"center",borderTopWidth:0.5}}>
+  <View style={{width:"60%",flexDirection:"row"}}>
+    <View style={{borderColor:"black",width:"55%",alignItems:'center'}}>
+  <Text>Salaire total</Text>
+  </View>
+   <Text   style={{width:"45%",      borderColor:"black",        
+        borderLeftWidth: 0.4, 
+        fontSize:15,
+        color:"black",    
+        paddingHorizontal:"10%",
+        
+        textAlign:'center',
+        
+       }}
+         >      
+         Taux
+   </Text>   
+  </View>
+
+  <View style={{borderColor:"black",borderLeftWidth:0.4,width:'40%',backgroundColor:"white",alignItems:"center"}}>
+    <Text>final</Text>
+  </View>
+</View>
+
+
+<View style={{flexDirection:"row",height:50,alignItems:"center",borderTopWidth:0.5}}>
+  <View style={{width:"60%",flexDirection:"row",height:70,alignItems:'center'}}>
+   
+  <Text   style={{width:"55%",      borderColor:"black",  
+        height: 50,     
+     //   paddingHorizontal:"23%",        
+        borderLeftWidth: 0.4,
+        //borderBottomWidth:1,
+        fontSize:15,
+        color:"black",
+        
+        paddingHorizontal:"10%",
+      paddingTop:15
+       // alignItems:"center",
+     //  alignSelf:"center"
+        //color:"white",     
+        
+       }}
+    >   455555   
+   </Text>  
+  
+   <Text   style={{width:"45%",      borderColor:"black",  
+        height: 50,     
+     //   paddingHorizontal:"23%",        
+        borderLeftWidth: 0.4,
+        //borderBottomWidth:1,
+        fontSize:15,
+        color:"black",
+        
+        paddingHorizontal:"10%",
+      
+       // alignItems:"center",
+     //  alignSelf:"center"
+        //color:"white",     
+        
+       }}
+    >   455555   
+   </Text>   
+  </View>
+
+  <View style={{borderColor:"black",alignItems:'center',width:'40%',borderLeftWidth:0.4,height:50,justifyContent:'center'}}>
+    <Text style={{textAlign:'center',borderWidth:1 ,padding:10}}>dfdsfsgfdfsdf</Text>
+  </View>
+</View>
+
+
         <View style={{borderTopWidth:0.2, padding:0}}></View>
 
  
@@ -301,4 +372,4 @@ loading: {
     },
     
 })
-export default ListingScreen;
+export default paymentScreen;

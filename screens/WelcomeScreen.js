@@ -20,7 +20,7 @@ function WelcomeScreen({ navigation })
     const[isActive2,setIsActive2] = React.useState(false);
     const customStyle = isActive ? styles.input2 : styles.input;    
     const customStyle2 = isActive2 ? styles.input2 : styles.input; 
-    const [boxanimation,setBoxaniamtion]  = useState('fadeInUpBig')
+    const [boxanimation,setBoxaniamtion]  = useState('fadeInUp')
     const [istest,setIstest]=useState();
     const [istest2,setIstest2]=useState();
 return (
@@ -31,11 +31,11 @@ return (
 <TouchableWithoutFeedback onPress={Keyboard.dismiss} > 
 <SafeAreaView >
   <View style={styles.header}>
-<Animatable.Text animation="fadeInDown"
-duration={1500} style={styles.txtlogo}>CNSS</Animatable.Text> 
+<Animatable.Text animation="fadeInDown" delay={200}
+ style={styles.txtlogo}>CNSS</Animatable.Text> 
 <Animatable.Image
 animation="fadeInDown"
-duration={1500}
+delay={100}
  source={require('../assets/cnss2.png')}
  style={styles.logo}
  resizeMode="contain">
@@ -47,7 +47,7 @@ duration={1500}
             <ActivityIndicator  size="large" color="green"  />
             <Text style={{alignSelf:"center",fontSize:15}} >loading...</Text>
              </View> : (
-           <Animatable.View animation={boxanimation}
+           <Animatable.View animation={boxanimation} delay={200} 
           >  
      <LinearGradient colors={['#2C5364','#141E30']} style={styles.box} >          
      
@@ -63,7 +63,7 @@ duration={1500}
         keyboardType="numeric" >      
      </TextInput>  
      {istest? 
-          <Animatable.Text animation='bounceIn' style={{ color: "red",marginTop:-55,marginBottom:40,marginLeft:"75%" }}> <MaterialIcons name='error-outline' color="red"  size={22}/></Animatable.Text> 
+          <Animatable.Text animation='bounceIn'  style={{ color: "red",marginTop:-55,marginBottom:40,marginLeft:"75%" }}> <MaterialIcons name='error-outline' color="red"  size={22}/></Animatable.Text> 
           : <Animatable.Text animation='fadeOutRight' style={{ color: "red",marginTop:-55,marginBottom:40,marginLeft:"75%" }}><MaterialIcons name='error-outline' color="dodgerblue"  size={22}/> </Animatable.Text>
           }
      <TextInput style={customStyle2}
@@ -78,7 +78,7 @@ duration={1500}
      </TextInput>    
      {istest2? 
           <Animatable.Text animation='bounceIn' style={styles.inputerror}> <MaterialIcons name='error-outline' color="red"  size={22}/></Animatable.Text> 
-          : <Animatable.Text animation='fadeOutRight' style={styles.inputerror}><MaterialIcons name='error-outline' color="dodgerblue"  size={22}/> </Animatable.Text>
+          : <Animatable.Text animation='fadeOutRight'   style={styles.inputerror}><MaterialIcons name='error-outline' color="dodgerblue"  size={22}/> </Animatable.Text>
           }
      <LinearGradient colors={['#2ecc71','#1abc9c']} style={styles.button}>
        <View>
@@ -99,16 +99,19 @@ duration={1500}
          setLoading(true)
          //////////
         try {
-          let employer = await fetch("http://172.16.17.124:8081/search_employer/"+number);
-       
+          let employer = await fetch("https://reactnative.dev/movies.json");
           let result = await employer.json();
+         // let employer = await fetch("http://172.16.17.124:8081/search_mployer/"+number);
+          //let result = await employer.json();
+
           setLoading(false)
+          
           return navigation.navigate('login',{numaff:number})
         }
        catch(error)
         {   
         Alert.alert("failed","enter a correct affiliation number!!! "+ number +" doesnt exist",  
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }]);
+              [{ text: "OK" }]);
               setLoading(false);
               setIstest(true);
               setIstest2(true);

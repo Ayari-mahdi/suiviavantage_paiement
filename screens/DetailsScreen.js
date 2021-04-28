@@ -14,25 +14,43 @@ function DetailsScreen({route,navigation}) {
     return (
         <View style={styles.container}>
             
-       <Animatable.View animation="fadeInUpBig" style={{ flexDirection:"column-reverse"}} >
+       <Animatable.View animation="fadeInUpBig" delay={250} style={{ flexDirection:"column-reverse"}} >
            <View style={styles.detailslist}> 
           
            <Text style={styles.title}>Détails de l'employé</Text>
            
            <Text style={{borderTopWidth:2,borderRadius:10,width:"75%",alignSelf:"center",marginBottom:10}}></Text>
-           <ScrollView style={{width:"100%"}}>
+           <ScrollView style={{width:"100%",backgroundColor:"white",borderRadius:20}}>
            <View style={{...styles.items}}>           
-            <Text style= {styles.txt}>-mat :</Text>
+            <Text style= {styles.txt}>-nom :</Text>
+            <Text style= {styles.txt4}>{data.daa_nom} </Text>
+           </View>
+           <View style={{...styles.items}}>           
+            <Text style= {styles.txt}>-prenom :</Text>
+            <Text style= {styles.txt4}>{data.daa_prenom} </Text>
+           </View>
+          
+           <View style={{...styles.items}}>           
+            <Text style= {styles.txt}>- assuree mat :</Text>
             <Text style= {styles.txt4}>{data.ass_mat} </Text>
            </View>
            
            <View style={{...styles.items}}>           
-            <Text style= {styles.txt}>-emp mat :</Text>
+            <Text style= {styles.txt}>-employeur mat :</Text>
             <Text style= {styles.txt4}>{data.emp_mat} </Text>
            </View>
+           
            <View style={{...styles.items}}>           
-            <Text style= {styles.txt}>-nom :</Text>
-            <Text style= {styles.txt4}>{data.daa_nom} </Text>
+            <Text style= {styles.txt}>-date debut :</Text>
+            <Text style= {styles.txt4}>{data.daa_dtdeb} </Text>
+           </View>
+           <View style={{...styles.items}}>           
+            <Text style= {styles.txt}>-date fin :</Text>
+            <Text style= {styles.txt4}>{data.daa_dtfin} </Text>
+           </View>
+           <View style={{...styles.items}}>           
+            <Text style= {styles.txt}>-date creation :</Text>
+            <Text style= {styles.txt4}>{data.daa_dtsais} </Text>
            </View>
            <View style={{...styles.items}}>           
             <Text style= {styles.txt}>-Salaire :</Text>
@@ -45,6 +63,7 @@ function DetailsScreen({route,navigation}) {
 
         
            </ScrollView>
+           <View style={{height:30}}><Text></Text></View>
            </View >
            <TouchableOpacity style={styles.closebutton}  onPress={()=>navigation.goBack()}>
                      
@@ -53,8 +72,8 @@ function DetailsScreen({route,navigation}) {
         
            </TouchableOpacity>
            </Animatable.View>
-           <Animatable.Text animation="fadeInDown" duration={5500}
-duration={1500} style={styles.txtlogo}>Suivi Avantage</Animatable.Text>
+           <Animatable.Text animation="fadeInDown" 
+delay={200} style={styles.txtlogo}>Suivi Avantage</Animatable.Text>
            </View>
     );
 }
@@ -85,8 +104,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius:60,
         borderTopRightRadius:60,
         height:height_box,
-        backgroundColor:"white",
-        //backgroundColor:"#05375a",
+        backgroundColor:"#E0E0E0",
+       // backgroundColor:"green",
         justifyContent:'flex-start',
         alignItems:'center',
         
@@ -94,19 +113,20 @@ const styles = StyleSheet.create({
     },  
     title:{
         color:'dodgerblue',
-        fontSize:20,
+        fontSize:22,
         marginBottom:10,
         fontWeight:'bold',
         paddingLeft:5,
         letterSpacing:3,
-        marginTop:80
+        marginTop:60
     },
     items:
     { flexDirection:"row",
       //width:"100%",
      flex:1,
-      borderBottomWidth:1,
+      borderTopWidth:1,
       marginHorizontal:10,
+      
   // marginRight:20,
       justifyContent:"center",
       alignItems:"center",
@@ -116,7 +136,7 @@ const styles = StyleSheet.create({
         width:"40%",
         fontSize:20,
         margin:6,
-        fontWeight:'bold',
+        
         paddingLeft:20,
         marginBottom:20,
        

@@ -25,7 +25,7 @@ function AddsalaryScreen ({route,navigation}) {
       >
         
            <Animatable.View 
-      animation='fadeInLeftBig' duration={1000}   
+      animation='fadeInLeftBig' delay={200}   
       style={styles.container1}
      >  
      <TouchableOpacity style={styles.closebutton}  onPress={()=>navigation.navigate('login')}>                  
@@ -34,7 +34,7 @@ function AddsalaryScreen ({route,navigation}) {
      
 
         <View style={styles.inner}>
-        <Text style={styles.header}>Ajouter le salaire</Text>
+        <Text style={styles.header}>Ajouter le salaire trimestriel en millimes</Text>
         <Text style={styles.empname}>de {data.daa_nom} {data.daa_prenom}</Text>
         <TextInput placeholder="Salaire"
           onFocus={()=>{ setIsActive5(true) }}
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         paddingTop:80,
       },
       header: {
-        fontSize: 36,
+        fontSize: 24,
        marginBottom: 7,
         //color:"dodgerblue"
         color:"black"

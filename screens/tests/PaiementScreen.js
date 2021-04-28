@@ -1,22 +1,16 @@
 import React,{ useEffect, useState }  from 'react';
 import * as Animatable from 'react-native-animatable'
-import {SnackbarComponentProps} from 'react-native-snackbar-component';
-import{Picker} from '@react-native-community/picker';
-import {FontAwesome} from 'react-native-vector-icons';
-import {Entypo} from 'react-native-vector-icons';
-import {Ionicons} from 'react-native-vector-icons';
+
 import {MaterialIcons} from 'react-native-vector-icons';
-import { ScrollView,View,Text,StyleSheet,
-   SafeAreaView,FlatList,ActivityIndicator,
-   Alert ,SectionList,MaterialCommunityIcons,
-   TouchableHighlight,Dimensions,StatusBar} from 'react-native';
+import { View,Text,StyleSheet,
+  FlatList,ActivityIndicator,
+   Alert,TouchableHighlight,Dimensions,StatusBar} from 'react-native';
 
 function PaiementScreen({navigation}) 
 {
 
     const [isLoading, setLoading] = React.useState(true);
     const [data, setData] = React.useState([]);
-    const [selectedValue, setSelectedValue] = useState("SCVP");
     const {height} = Dimensions.get("screen");
     const statusbar= StatusBar.currentHeight
     
@@ -34,7 +28,7 @@ function PaiementScreen({navigation})
 
     return (
      <Animatable.View 
-     animation='fadeInRightBig' 
+     animation='fadeInRightBig' delay={100}
      style={styles.container}>
         <View style={{padding:15}}>
          <Text style={{fontSize:30,color:"dodgerblue"}}>Employé ajouter</Text>

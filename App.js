@@ -10,10 +10,11 @@ import {userDimensions,useDeviceOrientation} from '@react-native-community/hooks
 import WelcomeScreen from './screens/WelcomeScreen';
 import FirstScreen from './screens/FirstScreen';
 import ListingScreen from './screens/ListingScreen';
-import PaiementScreen from './screens/PaiementScreen';
-import FormScreen from './screens/FormScreen';
+
 import DetailsScreen from './screens/DetailsScreen';
 import AddsalaryScreen from './screens/AddsalaryScreen';
+import PaymentScreen from './screens/PaymentScreen';
+import ContactScreen from './screens/ContactScreen';
 export default function App()  {
   const Stack = createStackNavigator();
  const {landscape} = useDeviceOrientation();
@@ -22,14 +23,14 @@ export default function App()  {
   <NavigationContainer >
    
   <Stack.Navigator >
-    <Stack.Screen name="suivi avantage"
+ <Stack.Screen name="suivi avantage"
       options={{headerShown:false,headerStyle: {backgroundColor: "white"},
       headerTintColor: 'white', headerTitleStyle: {
       },
       }}
       component={WelcomeScreen} />
 
-    <Stack.Screen name="login" 
+<Stack.Screen name="login" 
       options={{headerTintColor: 'white',title:"back",
         headerStyle: { backgroundColor: "#19456b"}}    
       }  
@@ -41,18 +42,25 @@ export default function App()  {
       }  
       component={ListingScreen} />
 
-    <Stack.Screen name="FormScreen" options={{headerTintColor: 'white',
-      headerStyle: {
-      backgroundColor: "#19456b" //Set Header color   #1abc9c
-      },title:"Back"}}
-      component={FormScreen} />
+<Stack.Screen name="Pre-payment" 
+      options={{headerTintColor: 'white',
+        headerStyle: { backgroundColor: "#19456b"}}    
+      }  
+      component={PaymentScreen} />
 
-       <Stack.Screen name="AddsalaryScreen" options={{headerShown:false,headerTintColor: 'white',
+<Stack.Screen name="Contact" options={{
+      headerShown:false
+      }}
+      component={ContactScreen} />
+ 
+
+<Stack.Screen name="AddsalaryScreen" options={{headerShown:false,headerTintColor: 'white',
       headerStyle: {
       backgroundColor: "#19456b" //Set Header color   #1abc9c
       },title:"Back"}}
       component={AddsalaryScreen} />
-    <Stack.Screen name="DetailsScreen" options={{
+
+<Stack.Screen name="DetailsScreen" options={{
       headerShown:false
       }}
       component={DetailsScreen} />

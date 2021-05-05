@@ -38,7 +38,7 @@ function ListingScreen ({numaf,navigation})
 const {height} = Dimensions.get("screen");
 const statusbar= StatusBar.currentHeight
 
-const height_flatlist = (height-statusbar) *0.63;
+const height_flatlist = (height-statusbar) *0.62;
   //  const[api,setApi]= useState("http://172.16.17.124:8081/listemployeesperemployer/"+numaf)
     const[api,setApi]= useState("https://reactnative.dev/movies.json")
  // fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf )
@@ -54,51 +54,7 @@ const height_flatlist = (height-statusbar) *0.63;
 
     return (
 <View style={styles.container}>
-   <View style={{flexDirection:"row",marginBottom:20,marginHorizontal:5} } >
-  <TextInput style={{width:"75%",borderColor:"black",
-           
-        borderWidth:0.3,
-       
-        fontSize:15,
-        color:"black",
-       backgroundColor:"#E0E0E0",
-        borderRadius:40,
-       // fontWeight:"600",
-        paddingHorizontal:"10%",
-       // marginBottom:10,  
-        //alignSelf:"center"  
-        marginRight:5
-       }}
-     placeholderTextColor="grey"
-     onChangeText={search=>setSearch(search)}
-     value={search}
-     placeholder="Recherche: nom, matricule"
-     
-     keyboardType="default" >      
-   </TextInput>   
-     <TouchableHighlight
-         style={{backgroundColor:"black",paddingVertical:2,borderRadius:20,alignItems:"center",alignSelf:"center",flex:1}}   
-         underlayColor='grey'
-         onPress={() => {
-          
-                  fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf+"/"+trim+"/"+year)
-                 .then((response) => response.json())
-                 .then((json)=>setData(json) )
-                 
-               .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
-                [{ text: "OK" }]))
-                 .finally(() => setLoading(false));
-            }
-
-         }
-
-         >
-         <View style={{flexDirection:"row"}}>
-         <Text style={{color:"white"}}>Search</Text>
-         <Text><Ionicons name='search-outline' color="white"  size={20}/></Text>
-         </View>
-    </TouchableHighlight>
-  </View>
+   
  <View style={{flexDirection:"row"}}>
   <View style={{width:"65%",flexDirection:"row"}}>
     <View style={{borderColor:"black",borderWidth:0.4,width:"35%",borderRadius:10,marginLeft:10,backgroundColor:"white",}}>
@@ -135,7 +91,7 @@ const height_flatlist = (height-statusbar) *0.63;
      value={year}
      placeholder="Year"
      maxLength={4}
-     keyboardType="default" >      
+     keyboardType="numeric" >      
    </TextInput>   
   </View>
 
@@ -152,7 +108,54 @@ const height_flatlist = (height-statusbar) *0.63;
       </Picker>
   </View>
 </View>
+<View style={{flexDirection:"row",marginTop:20,marginHorizontal:15} } >
+<View style={{width:"75%"}}>
+  <TextInput style={{width:"95%",borderColor:"black",
+           
+        borderWidth:0.3,
+       
+        fontSize:15,
+        color:"black",
+       backgroundColor:"#E0E0E0",
+        borderRadius:15,
+       // fontWeight:"600",
+        paddingHorizontal:"10%",
+       // marginBottom:10,  
+        //alignSelf:"center"  
+        marginRight:5,
+        paddingVertical:4
+       }}
+     placeholderTextColor="grey"
+     onChangeText={search=>setSearch(search)}
+     value={search}
+     placeholder="Recherche: nom, matricule"
+     
+     keyboardType="default" >      
+   </TextInput>  
+   </View>
+     <TouchableHighlight
+         style={{width:"25%",backgroundColor:"black",paddingVertical:6,borderRadius:12,alignItems:"center",alignSelf:"center",marginLeft:"0%"}}   
+         underlayColor='grey'
+         onPress={() => {
+          
+                  fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf+"/"+trim+"/"+year)
+                 .then((response) => response.json())
+                 .then((json)=>setData(json) )
+                 
+               .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
+                [{ text: "OK" }]))
+                 .finally(() => setLoading(false));
+            }
 
+         }
+
+         >
+         <View style={{flexDirection:"row"}}>
+         <Text style={{color:"white"}}>Search</Text>
+         <Text><Ionicons name='search-outline' color="white"  size={20}/></Text>
+         </View>
+    </TouchableHighlight>
+  </View>
 
       <View style={{borderBottomWidth:0.5, padding:8}}></View>
       

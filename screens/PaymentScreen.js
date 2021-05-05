@@ -10,6 +10,7 @@ import { View,Text,StyleSheet,
 import ListItem  from "./ListItem";
 import {Transition,Transitioning} from 'react-native-reanimated';
 import react from 'react';
+import PaymentResultScreen from "./tests/PaymentResultScreen"
 
 const transition =(
   <Transition.Together>
@@ -23,14 +24,12 @@ function paymentScreen  ({numaf,navigation})  {
    const ref =react.useRef();
   //const numaf= route.navigation.dangerouslyGetParent().getParam('numaff');
     const [isLoading, setLoading] = React.useState(true);
-    const [isExpand, setExpand] = React.useState(false);
+  
     const [trim,setTrim] = React.useState("1");
-    const [search,setSearch] = React.useState("");
+    
     const [year,setYear] = React.useState("");
     const [data, setData] = React.useState([]);
-    const [itemheight,setItemheight] = React.useState(80);
-    const [circlename,setCirclename] = React.useState('rightcircle');
-    const [circlecolor,setCirclecolor] = React.useState("#505050");
+   
 
     const [selectedValue, setSelectedValue] = useState("Karama");
 
@@ -38,7 +37,7 @@ function paymentScreen  ({numaf,navigation})  {
 const {height} = Dimensions.get("screen");
 const statusbar= StatusBar.currentHeight
 
-const height_flatlist = (height-statusbar) *0.52;
+const height_flatlist = (height-statusbar) *0.624;
   //  const[api,setApi]= useState("http://172.16.17.124:8081/listemployeesperemployer/"+numaf)
     const[api,setApi]= useState("https://reactnative.dev/movies.json")
  // fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf )
@@ -54,51 +53,7 @@ const height_flatlist = (height-statusbar) *0.52;
 
     return (
 <View style={styles.container}>
-   <View style={{flexDirection:"row",marginBottom:20,marginHorizontal:5} } >
-  <TextInput style={{width:"75%",borderColor:"black",
-           
-        borderWidth:0.3,
-       
-        fontSize:15,
-        color:"black",
-       backgroundColor:"#E0E0E0",
-        borderRadius:40,
-       // fontWeight:"600",
-        paddingHorizontal:"10%",
-       // marginBottom:10,  
-        //alignSelf:"center"  
-        marginRight:5
-       }}
-     placeholderTextColor="grey"
-     onChangeText={search=>setSearch(search)}
-     value={search}
-     placeholder="Recherche: nom, matricule"
-     
-     keyboardType="default" >      
-   </TextInput>   
-     <TouchableHighlight
-         style={{backgroundColor:"black",paddingVertical:2,borderRadius:20,alignItems:"center",alignSelf:"center",flex:1}}   
-         underlayColor='grey'
-         onPress={() => {
-          
-                  fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf+"/"+trim+"/"+year)
-                 .then((response) => response.json())
-                 .then((json)=>setData(json) )
-                 
-               .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
-                [{ text: "OK" }]))
-                 .finally(() => setLoading(false));
-            }
-
-         }
-
-         >
-         <View style={{flexDirection:"row"}}>
-         <Text style={{color:"white"}}>Search</Text>
-         <Text><Ionicons name='search-outline' color="white"  size={20}/></Text>
-         </View>
-    </TouchableHighlight>
-  </View>
+   
  <View style={{flexDirection:"row"}}>
   <View style={{width:"65%",flexDirection:"row"}}>
     <View style={{borderColor:"black",borderWidth:0.4,width:"35%",borderRadius:10,marginLeft:10,backgroundColor:"white",}}>
@@ -135,24 +90,41 @@ const height_flatlist = (height-statusbar) *0.52;
      value={year}
      placeholder="Year"
      maxLength={4}
-     keyboardType="default" >      
+     keyboardType="numeric" >      
    </TextInput>   
   </View>
 
-  <View style={{borderColor:"black",borderWidth:0.4,width:110,borderRadius:10,backgroundColor:"white",}}>
-      <Picker
-        selectedValue={selectedValue}
-        style={{  width: 120}}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-        >
-        <Picker.Item label="KARAMA" value="KARAMA" />
-        <Picker.Item label="SCV" value="SCV" />
-        <Picker.Item label="CIVP" value="CIVP" />
-        <Picker.Item label="STARTUP-ACT" value="STARTUP-ACT" />
-      </Picker>
-  </View>
-</View>
 
+  <TouchableHighlight
+         style={{backgroundColor:"black",paddingVertical:6,borderRadius:12,alignItems:"center",alignSelf:"center",width:"30%"}}   
+         underlayColor='grey'
+         onPress={() => {
+          
+                  fetch("http://172.16.17.124:8081/listemployeesperemployer/"+numaf+"/"+trim+"/"+year)
+                 .then((response) => response.json())
+                 .then((json)=>setData(json) )
+                 
+               .catch((error) => Alert.alert("failed","unable to load data check your connection !",  
+                [{ text: "OK" }]))
+                 .finally(() => setLoading(false));
+            }
+
+         }
+
+         >
+         <View style={{flexDirection:"row"}}>
+         <Text style={{color:"white"}}>Search</Text>
+         <Text><Ionicons name='search-outline' color="white"  size={20}/></Text>
+         </View>
+    </TouchableHighlight>
+
+
+
+</View>
+<View style={{flexDirection:"row",marginTop:20,marginHorizontal:5,justifyContent:"center",alignItems:"center",width:"30%",marginLeft:"65%"} } >
+  
+    
+  </View>
 
       <View style={{borderBottomWidth:0.5, padding:8}}></View>
       
@@ -173,110 +145,57 @@ const height_flatlist = (height-statusbar) *0.52;
            data={data}
           // keyExtractor={item => item.ass_mat.toString()}
           keyExtractor={(item,index) => index+""}
-           renderItem={({ item,index }) =>{
+           renderItem={({ item,index }) =>(
           
-         //  if(search.trim()!=="") { 
-          // if (item.daa_nom.toLowerCase()=== search.toLowerCase().trim() ||item.daa_prenom.toLowerCase() === search.toLowerCase().trim()
-          // || item.ass_mat=== search.trim()){
-          
-          
-           const x =selectedValue.toString();
-         
-           return<ListItem item={item} selectedValue={x}  navigation={navigation} index={index} color={true}
-           animatefun={()=>ref.current.animateNextTransition()}
-           onSwipefromleft={()=>navigation.navigate("DetailsScreen",{oneitem:item})}
-           onRightPress={()=>navigation.navigate("AddsalaryScreen", {oneitem:item})}
-           />     
-         // }
-       // } 
-        if (search.trim()==="")
-        {   
-          const x =selectedValue.toString();
-          
-          return<ListItem item={item} key={item} selectedValue={x}  navigation={navigation}
-          animatefun={()=>ref.current.animateNextTransition()}
-          onSwipefromleft={()=>navigation.navigate("DetailsScreen",{oneitem:item})}
-          onRightPress={()=>navigation.navigate("AddsalaryScreen", {oneitem:item})}
-          />     
-        }
+            <Animatable.View animation='fadeInLeftBig' delay={200}>
+            <View 
+            style= {styles.items1}>      
+            <View style= {{...styles.items,borderTopWidth:0}}>   
+            <Text style= {styles.txt1}>Saldeclares</Text>
+            <Text style= {styles.txt1}>120.000{item.daa_nom}</Text>
+            </View>
+        
+           
+            
+           </View>
+
+           <View 
+            style= {styles.items1}>      
+            <View style= {{...styles.items,borderTopWidth:0}}>   
+            <Text style= {styles.txt1}>Taux</Text>
+            <Text style= {styles.txt1}>{item.daa_nom}</Text>
+            </View>
+        
+           
+            
+           </View>
+            <View 
+            style= {styles.items1}>      
+            <View style= {{...styles.items,borderTopWidth:0}}>   
+            <Text style= {styles.txt1}>Somme final</Text>
+            <Text style= {styles.txt1}>{item.daa_nom}</Text>
+            </View>
+        
+           
+            <View style={styles.bar2}>
+              <Text style={{color:"white"}}>{selectedValue}</Text>
+              </View>  
+           </View>
+           </Animatable.View>
+     
 
 
-         }}
+             )}
          numColumns={1}
         />        
       </Transitioning.View>
         )}
 
                   
-<View style={{flexDirection:"row",backgroundColor:"white",height:20,alignItems:"center",borderTopWidth:0.5}}>
-  <View style={{width:"60%",flexDirection:"row"}}>
-    <View style={{borderColor:"black",width:"55%",alignItems:'center'}}>
-  <Text>Salaire total</Text>
-  </View>
-   <Text   style={{width:"45%",      borderColor:"black",        
-        borderLeftWidth: 0.4, 
-        fontSize:15,
-        color:"black",    
-        paddingHorizontal:"10%",
-        
-        textAlign:'center',
-        
-       }}
-         >      
-         Taux
-   </Text>   
-  </View>
-
-  <View style={{borderColor:"black",borderLeftWidth:0.4,width:'40%',backgroundColor:"white",alignItems:"center"}}>
-    <Text>final</Text>
-  </View>
-</View>
 
 
-<View style={{flexDirection:"row",height:50,alignItems:"center",borderTopWidth:0.5}}>
-  <View style={{width:"60%",flexDirection:"row",height:70,alignItems:'center'}}>
-   
-  <Text   style={{width:"55%",      borderColor:"black",  
-        height: 50,     
-     //   paddingHorizontal:"23%",        
-        borderLeftWidth: 0.4,
-        //borderBottomWidth:1,
-        fontSize:15,
-        color:"black",
-        
-        paddingHorizontal:"10%",
-      paddingTop:15
-       // alignItems:"center",
-     //  alignSelf:"center"
-        //color:"white",     
-        
-       }}
-    >   455555   
-   </Text>  
-  
-   <Text   style={{width:"45%",      borderColor:"black",  
-        height: 50,     
-     //   paddingHorizontal:"23%",        
-        borderLeftWidth: 0.4,
-        //borderBottomWidth:1,
-        fontSize:15,
-        color:"black",
-        
-        paddingHorizontal:"10%",
-      
-       // alignItems:"center",
-     //  alignSelf:"center"
-        //color:"white",     
-        
-       }}
-    >   455555   
-   </Text>   
-  </View>
 
-  <View style={{borderColor:"black",alignItems:'center',width:'40%',borderLeftWidth:0.4,height:50,justifyContent:'center'}}>
-    <Text style={{textAlign:'center',borderWidth:1 ,padding:10}}>dfdsfsgfdfsdf</Text>
-  </View>
-</View>
+
 
 
         <View style={{borderTopWidth:0.2, padding:0}}></View>
@@ -325,10 +244,11 @@ items1:
         justifyContent:"center",
         alignItems:"center",
         //borderBottomWidth:1,  
-        marginVertical:5,
-        borderWidth:1,
-        borderRadius:20,
-        marginHorizontal:5,
+      //  marginVertical:5,
+        borderWidth:0.5,
+        borderRightWidth:0,
+       // borderRadius:20,
+      //  marginHorizontal:5,
         backgroundColor:"white",    
       },
 container:{
@@ -370,6 +290,14 @@ loading: {
       justifyContent: "center",
        
     },
-    
-})
+
+    bar2 :{   
+         backgroundColor:"red",
+         width:"100%",alignItems:"center",
+        //borderBottomLeftRadius:20,
+      //  borderBottomRightRadius:20
+      }
+        
+      }
+)
 export default paymentScreen;
